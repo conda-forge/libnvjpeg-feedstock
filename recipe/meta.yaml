@@ -3,11 +3,13 @@
 {% set cuda_version = "12.9" %}
 {% set platform = "linux-x86_64" %}  # [linux64]
 {% set platform = "linux-ppc64le" %}  # [ppc64le]
-{% set platform = "linux-sbsa" %}  # [aarch64]
+{% set platform = "linux-sbsa" %}  # [aarch64 and arm_variant_type=="sbsa"]
+{% set platform = "linux-aarch64" %}  # [aarch64 and arm_variant_type=="tegra"]
 {% set platform = "windows-x86_64" %}  # [win]
 {% set target_name = "x86_64-linux" %}  # [linux64]
 {% set target_name = "ppc64le-linux" %}  # [ppc64le]
-{% set target_name = "sbsa-linux" %}  # [aarch64]
+{% set target_name = "sbsa-linux" %}  # [aarch64 and arm_variant_type=="sbsa"]
+{% set target_name = "aarch64-linux" %}  # [aarch64 and arm_variant_type=="tegra"]
 {% set target_name = "x64" %}  # [win]
 {% set extension = "tar.xz" %}  # [not win]
 {% set extension = "zip" %}  # [win]
@@ -19,11 +21,12 @@ package:
 source:
   url: https://developer.download.nvidia.com/compute/cuda/redist/{{ name }}/{{ platform }}/{{ name }}-{{ platform }}-{{ version }}-archive.{{ extension }}
   sha256: ddd8245b2803f5b55211261d7e5d7abf803c05f3b032238d0feaa6e09ea9401d  # [linux64]
-  sha256: 405b5627ffd772d2837ae4ece123fdee841c34894dba2180a1c8e1b84c0f2665  # [aarch64]
+  sha256: 405b5627ffd772d2837ae4ece123fdee841c34894dba2180a1c8e1b84c0f2665  # [aarch64 and arm_variant_type=="sbsa"]
+  sha256: a9841bff40e577bec81352054e05c5d98720ae8e2ccfc4863eaac9dd35444c27  # [aarch64 and arm_variant_type=="tegra"]
   sha256: b253241fc88bf30947b8ee068101aca8930960f113d8ee4a9583de021a79ffa1  # [win]
 
 build:
-  number: 0
+  number: 1
   binary_relocation: false
   skip: true  # [osx or ppc64le]
 
@@ -48,7 +51,6 @@ outputs:
         - cuda-version {{ cuda_version }}
       run:
         - {{ pin_compatible("cuda-version", max_pin="x.x") }}
-      run_constrained:
         - arm-variant * {{ arm_variant_type }}  # [aarch64]
     test:
       requires:
@@ -93,8 +95,8 @@ outputs:
         - {{ pin_compatible("cuda-version", max_pin="x.x") }}
         - {{ pin_subpackage("libnvjpeg", exact=True) }}
         - cuda-cudart-dev
-      run_constrained:
         - arm-variant * {{ arm_variant_type }}  # [aarch64]
+      run_constrained:
         - libnvjpeg-static >={{ version }}      # [linux]
     test:
       commands:
@@ -127,7 +129,6 @@ outputs:
         - cuda-version {{ cuda_version }}
       run:
         - {{ pin_compatible("cuda-version", max_pin="x.x") }}
-      run_constrained:
         - arm-variant * {{ arm_variant_type }}  # [aarch64]
     test:
       commands:
