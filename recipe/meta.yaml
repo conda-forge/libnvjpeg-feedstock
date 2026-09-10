@@ -1,16 +1,22 @@
 {% set name = "libnvjpeg" %}
-{% set version = "13.2.1.68" %}
-{% set cuda_version = "13.3" %}
+{% set version = "13.2.2.35" %}
+{% set cuda_version = "13.4" %}
 {% set platform = "linux-x86_64" %}  # [linux64]
 {% set platform = "linux-ppc64le" %}  # [ppc64le]
 {% set platform = "linux-sbsa" %}  # [aarch64]
-{% set platform = "windows-x86_64" %}  # [win]
+{% set platform = "windows-x86_64" %}  # [win64]
+{% set platform = "windows-arm64" %}  # [win and arm64]
 {% set target_name = "x86_64-linux" %}  # [linux64]
 {% set target_name = "ppc64le-linux" %}  # [ppc64le]
 {% set target_name = "sbsa-linux" %}  # [aarch64]
-{% set target_name = "x64" %}  # [win]
+{% set target_name = "x64" %}  # [win64]
+{% set target_name = "arm64" %}  # [win and arm64]
 {% set extension = "tar.xz" %}  # [not win]
 {% set extension = "zip" %}  # [win]
+{% set sha256 = "4118c80899d3cacf653b4d6b6ca38eb52ec155102bf45decfc4c720f8de65a39" %}  # [linux64]
+{% set sha256 = "1a995eb33167affd3ef998f619892e94c6c60db07cd91c9c0b8ae7d924d51b53" %}  # [aarch64]
+{% set sha256 = "65a9a4ec073e0a865b8c8642474ccf95e6bdc74676cc3650553c4696f1fdbebf" %}  # [win64]
+{% set sha256 = "b6484202e403c237e7ee0a2db0501bb05c414e82ec5501d35de70da94ad469c0" %}  # [win and arm64]
 
 package:
   name: {{ name|lower }}-split
@@ -18,9 +24,7 @@ package:
 
 source:
   url: https://developer.download.nvidia.com/compute/cuda/redist/{{ name }}/{{ platform }}/{{ name }}-{{ platform }}-{{ version }}-archive.{{ extension }}
-  sha256: 22610703f7bc4e57d9b7b2f39ea7055c7495b603ab8fbf107b6d735a16746d4e  # [linux64]
-  sha256: 298f946d674de7e35a13535d2a62c8ed19a083b286de0845c7a90cb300e2a702  # [aarch64]
-  sha256: 932265c0acdd445c260649acf38a015c95a752fd26c3c6d4fcd0cfb47abcbcaa  # [win]
+  sha256: {{ sha256 }}
 
 build:
   number: 0
