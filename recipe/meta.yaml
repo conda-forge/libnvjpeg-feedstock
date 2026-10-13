@@ -27,13 +27,13 @@ source:
   sha256: {{ sha256 }}
 
 build:
-  number: 0
+  number: 1
   binary_relocation: false
   skip: true  # [osx or ppc64le]
 
 requirements:
   build:
-    - cf-nvidia-tools 1.*  # [linux]
+    - cf-nvidia-tools 1  # [linux]
     - patchelf <0.18.0                      # [linux]
 
 outputs:
