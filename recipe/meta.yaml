@@ -1,6 +1,6 @@
 {% set name = "libnvjpeg" %}
-{% set version = "13.2.3.58" %}
-{% set cuda_version = "13.4" %}
+{% set version = "13.3.2.43" %}
+{% set cuda_version = "13.5" %}
 {% set platform = "linux-x86_64" %}  # [linux64]
 {% set platform = "linux-ppc64le" %}  # [ppc64le]
 {% set platform = "linux-sbsa" %}  # [aarch64]
@@ -13,10 +13,10 @@
 {% set target_name = "arm64" %}  # [win and arm64]
 {% set extension = "tar.xz" %}  # [not win]
 {% set extension = "zip" %}  # [win]
-{% set sha256 = "ea46688875d58579f1bac24fa3b2525413843cb7d2e031dffb3d8f89fafd8e5b" %}  # [linux64]
-{% set sha256 = "077518f58ff9d619b8ac679448d74bdf7be9e3619f9f688c9c6060ed8bc6c13e" %}  # [aarch64]
-{% set sha256 = "97f408e982fc71f704085e29fd3fb9daf9ec8a35c05e72d698ab2ca15f97f80e" %}  # [win64]
-{% set sha256 = "5eed7829aa9f88c48c27627345391bef2dd5bc9706c643f977046aeddd384c76" %}  # [win and arm64]
+{% set sha256 = "43793997b5c21929a31a0fa8d3a1fa4f20c20ac519d5b0dd3969166ea2f55cf3" %}  # [linux64]
+{% set sha256 = "431e9715e9f7b719abd6957c51d7d33b0d392cc397d5bf6bec3a18fb923aa19d" %}  # [aarch64]
+{% set sha256 = "f33c0dc9aa6424347ccbd68f5a3f14c2aab5f5849214a9bb3be92ae104222d1b" %}  # [win64]
+{% set sha256 = "38f3267f6b8451cbf53262daec432ac18f549b8087f25201d37bd776e5697956" %}  # [win and arm64]
 
 package:
   name: {{ name|lower }}-split
@@ -27,7 +27,7 @@ source:
   sha256: {{ sha256 }}
 
 build:
-  number: 1
+  number: 0
   binary_relocation: false
   skip: true  # [osx or ppc64le]
 
